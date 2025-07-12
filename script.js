@@ -5,8 +5,7 @@
 
 // *** MODIFICATION : Définir l'URL du backend ***
 // Remplacez ceci par l'URL publique de votre backend Railway après le déploiement
-const BACKEND_URL = 'http://localhost:3000'; // Remplacez ceci !
-// Par exemple : const BACKEND_URL = 'https://votre-backend-unique.railway.app';
+const BACKEND_URL = 'transportshtml-backend-api-production.up.railway.app'; // Remplacez ceci !
 // ********************************************
 
 document.addEventListener('DOMContentLoaded', () => {
