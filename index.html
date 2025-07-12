@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Transports Urbains</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Gestion des Transports Urbains</h1>
+        <nav>
+            <ul>
+                <li><a href="#villes" class="tab-link active" data-tab="villes">Villes</a></li>
+                <li><a href="#routes" class="tab-link" data-tab="routes">Routes</a></li>
+                <li><a href="#projets" class="tab-link" data-tab="projets">Projets</a></li>
+                <li><a href="#vehicules" class="tab-link" data-tab="vehicules">Véhicules (Flotte)</a></li>
+                <li><a href="#accidents" class="tab-link" data-tab="accidents">Accidents</a></li>
+                <li><a href="#gares" class="tab-link" data-tab="gares">Gares</a></li>
+                <li><a href="#aires_repos" class="tab-link" data-tab="aires_repos">Aires de Repos</a></li>
+                <li><a href="#ponts" class="tab-link" data-tab="ponts">Ponts</a></li>
+                <li><a href="#centroides" class="tab-link" data-tab="centroides">Centroïdes</a></li>
+                <!-- Add other main entities as needed -->
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="villes" class="tab-content active">
+            <h2>Ajouter une Ville</h2>
+            <form id="form-villes" class="data-form">
+                <label>Code<input type="text" name="code"></label>
+                <label>Nom<input type="text" name="nom" required></label>
+                <label>Population<input type="number" name="population" min="0"></label>
+                <label>Superficie (km²)<input type="number" name="superficie" step="0.01" min="0"></label>
+                <label>Taille Ménage<input type="number" name="taille_menage" step="0.01" min="0"></label>
+                <label>Revenu Ménage<input type="number" name="revenu_menage" step="0.01" min="0"></label>
+                <label>Nombre de Véhicules<input type="number" name="nombre_vehicules" min="0"></label>
+                <label>Localisation (JSON)<textarea name="localisation" placeholder='{"lat": 4.05, "lng": 9.7}'></textarea></label>
+                <label>Observations<textarea name="observations"></textarea></label>
+                <button type="submit">Ajouter</button>
+            </form>
+            <div class="data-list" id="list-villes">
+                <h3>Liste des Villes</h3>
+                <!-- Data will be loaded here by JavaScript -->
+            </div>
+        </section>
+
+        <section id="routes" class="tab-content">
+            <h2>Ajouter une Route</h2>
+            <form id="form-routes" class="data-form">
+                <label>Nom<input type="text" name="nom" required></label>
+                <label>Code<input type="text" name="code"></label>
+                <label>Localisation (JSON)<textarea name="localisation" placeholder='{"start": {"lat": 4.05, "lng": 9.7}, "end": {"lat": 4.1, "lng": 9.8}}'></textarea></label>
+                <label>Longueur (km)<input type="number" name="longueur" step="0.01" min="0"></label>
+                <label>Largeur (m)<input type="number" name="largeur" step="0.01" min="0"></label>
+                <label>Nombre de voies<input type="number" name="nombre_voies" min="1"></label>
+                <label>Poids Max (tonnes)<input type="number" name="poids_max" step="0.01" min="0"></label>
+                <label>Devers (%)<input type="number" name="devers" step="0.01"></label>
+                <label>Pente (%)<input type="number" name="pente" step="0.01"></label>
+                <label>Rayon Courbure Bas<input type="number" name="rayon_courbure_bas" step="0.01"></label>
+                <label>Rayon Courbure Haut<input type="number" name="rayon_courbure_haut" step="0.01"></label>
+                <label>Rayon Courbure<input type="number" name="rayon_courbure" step="0.01"></label>
+                <label>ID Type Revêtement<input type="number" name="id_type_revetement" min="1"></label> <!-- Should be dropdown, fetch from /api/type_revetement -->
+                <label>ID Electrification<input type="number" name="id_electrification" min="1"></label> <!-- Should be dropdown, fetch from /api/electrification -->
+                <label>ID Profil Route<input type="number" name="id_profil_route" min="1"></label> <!-- Should be dropdown, fetch from /api/profil_route -->
+                 <label>ID Ville<input type="number" name="id_ville" min="1" required></label> <!-- Should be dropdown, fetch from /api/ville -->
+                <label>Observations<textarea name="observations"></textarea></label>
+                <button type="submit">Ajouter</button>
+            </form>
+             <div class="data-list" id="list-routes">
+                <h3>Liste des Routes</h3>
+                <!-- Data will be loaded here by JavaScript -->
+            </div>
+        </section>
+
+        <section id="projets" class="tab-content">
+            <h2>Ajouter un Projet</h2>
+            <form id="form-projets" class="data-form">
+                <label>Nom<input type="text" name="nom" required></label>
+                <label>Code<input type="text" name="code"></label>
+                <label>Localisation (JSON)<textarea name="localisation" placeholder='{"lat": 4.05, "lng": 9.7}'></textarea></label>
+                <label>Date début<input type="date" name="date_debut"></label>
+                <label>Date fin<input type="date" name="date_fin"></label>
+                <label>ID Statut Projet<input type="number" name="id_statut_projet" min="1"></label> <!-- Should be dropdown, fetch from /api/statut_projet -->
+                <label>Observations<textarea name="observations"></textarea></label>
+                 <!-- Note: Linking Projet to Ville (id_ville) is done in the N-N table projet_ville -->
+                <button type="submit">Ajouter</button>
+            </form>
+             <div class="data-list" id="list-projets">
+                <h3>Liste des Projets</h3>
+                <!-- Data will be loaded here by JavaScript -->
+            </div>
+        </section>
+
+        <section id="vehicules" class="tab-content">
+            <h2>Ajouter Véhicule</h2>
+            <form id="form-vehicules" class="data-form">
+                <label>Année<input type="number" name="annee" min="1900" max="2100"></label>
+                 <label>ID Modèle<input type="number" name="id_modele" min="1"></label> <!-- Should be dropdown, fetch from /api/modele -->
+                <label>ID Propulsion<input type="number" name="id_propulsion" min="1"></label> <!-- Should be dropdown, fetch from /api/propulsion -->
+                <label>ID Gabarit<input type="number" name="id_gabarit" min="1"></label> <!-- Should be dropdown, fetch from /api/gabarit -->
+                <label>ID Type Véhicule<input type="number" name="id_type_vehicule" min="1"></label> <!-- Should be dropdown, fetch from /api/type_vehicule -->
+                <label>Observations<textarea name="observations"></textarea></label>
+                <!-- Note: Linking Vehicule to Ville (id_ville) is done in the N-N table vehicule_ville -->
+                <button type="submit">Ajouter</button>
+            </form>
+             <div class="data-list" id="list-vehicules">
+                <h3>Liste de la Flotte</h3>
+                <!-- Data will be loaded here by JavaScript -->
+            </div>
+        </section>
+
+        <section id="accidents" class="tab-content">
+            <h2>Ajouter Accident</h2>
+            <form id="form-accidents" class="data-form">
+                 <label>Année<input type="number" name="annee" min="1900" max="2100"></label>
+                <label>ID Centroïde<input type="number" name="id_centroide" min="1"></label> <!-- Should be dropdown, fetch from /api/centroide -->
+                <label>Localisation (JSON)<textarea name="localisation" placeholder='{"lat": 4.055, "lng": 9.705}'></textarea></label>
+                <label>Observations<textarea name="observations"></textarea></label>
+                 <!-- Note: Linking Accident to Ville (id_ville) is not direct in the new schema -->
+                <button type="submit">Ajouter</button>
+            </form>
+             <div class="data-list" id="list-accidents">
+                <h3>Liste des Accidents</h3>
+                <!-- Data will be loaded here by JavaScript -->
+            </div>
+        </section>
+
+        <section id="gares" class="tab-content">
+            <h2>Ajouter Gare</h2>
+            <form id="form-gares" class="data-form">
+                 <label>Nom<input type="text" name="nom" required></label>
+                <label>Code<input type="text" name="code"></label>
+                <label>Position (JSON)<textarea name="position" placeholder='{"lat": 4.05, "lng": 9.7}'></textarea></label>
+                 <label>Capacité<input type="number" name="capacite" min="0"></label>
+                <label>Superficie (km²)<input type="number" name="superficie" step="0.01" min="0"></label>
+                <label>ID Type Gare<input type="number" name="id_type_gare" min="1"></label> <!-- Should be dropdown, fetch from /api/type_gare -->
+                <label>ID Route<input type="number" name="id_route" min="1"></label> <!-- Should be dropdown, fetch from /api/routes -->
+                <label>Observations<textarea name="observations"></textarea></label>
+                <button type="submit">Ajouter</button>
+            </form>
+             <div class="data-list" id="list-gares">
+                <h3>Liste des Gares</h3>
+                <!-- Data will be loaded here by JavaScript -->
+            </div>
+        </section>
+
+        <section id="aires_repos" class="tab-content">
+            <h2>Ajouter Aire de Repos</h2>
+            <form id="form-aires_repos" class="data-form">
+                 <label>Nom<input type="text" name="nom" required></label>
+                <label>Code<input type="text" name="code"></label>
+                 <label>Localisation (JSON)<textarea name="localisation" placeholder='{"lat": 4.055, "lng": 9.705}'></textarea></label>
+                 <label>Capacité<input type="number" name="capacite" min="0"></label>
+                <label>Superficie (km²)<input type="number" name="superficie" step="0.01" min="0"></label>
+                <label>ID Type Aire Repos<input type="number" name="id_type_aire_repos" min="1"></label> <!-- Should be dropdown, fetch from /api/type_aire_repos -->
+                <label>ID Route<input type="number" name="id_route" min="1"></label> <!-- Should be dropdown, fetch from /api/routes -->
+                <label>Observations<textarea name="observations"></textarea></label>
+                <button type="submit">Ajouter</button>
+            </form>
+             <div class="data-list" id="list-aires_repos">
+                <h3>Liste des Aires de Repos</h3>
+                <!-- Data will be loaded here by JavaScript -->
+            </div>
+        </section>
+
+         <section id="ponts" class="tab-content">
+            <h2>Ajouter Pont</h2>
+            <form id="form-ponts" class="data-form">
+                 <label>Nom<input type="text" name="nom" required></label>
+                 <label>Hauteur (m)<input type="number" name="hauteur" step="0.01" min="0"></label>
+                 <label>Longueur (m)<input type="number" name="longueur" step="0.01" min="0"></label>
+                 <label>Largeur (m)<input type="number" name="largeur" step="0.01" min="0"></label>
+                 <label>Position (JSON)<textarea name="position" placeholder='{"lat": 4.06, "lng": 9.71}'></textarea></label>
+                <label>Poids Max (tonnes)<input type="number" name="poids_max" step="0.01" min="0"></label>
+                <label>ID Type Pont<input type="number" name="id_type_pont" min="1"></label> <!-- Should be dropdown, fetch from /api/type_pont -->
+                <label>ID Route<input type="number" name="id_route" min="1"></label> <!-- Should be dropdown, fetch from /api/routes -->
+                <label>Observations<textarea name="observations"></textarea></label>
+                <button type="submit">Ajouter</button>
+            </form>
+             <div class="data-list" id="list-ponts">
+                <h3>Liste des Ponts</h3>
+                <!-- Data will be loaded here by JavaScript -->
+            </div>
+        </section>
+
+         <section id="centroides" class="tab-content">
+            <h2>Ajouter Centroïde</h2>
+            <form id="form-centroides" class="data-form">
+                 <label>Code<input type="text" name="code"></label>
+                <label>Nom<input type="text" name="nom" required></label>
+                <label>Population<input type="number" name="population" min="0"></label>
+                <label>Superficie (km²)<input type="number" name="superficie" step="0.01" min="0"></label>
+                <label>Localisation (JSON)<textarea name="localisation" placeholder='{"lat": 4.055, "lng": 9.705}'></textarea></label>
+                <label>Observations<textarea name="observations"></textarea></label>
+                <button type="submit">Ajouter</button>
+            </form>
+             <div class="data-list" id="list-centroides">
+                <h3>Liste des Centroïdes</h3>
+                <!-- Data will be loaded here by JavaScript -->
+            </div>
+        </section>
+
+         <!-- Add sections for other entities (statistiques, etc.) as needed -->
+
+    </main>
+    <footer>
+        <p>© 2025 Gestion des Transports Urbains</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

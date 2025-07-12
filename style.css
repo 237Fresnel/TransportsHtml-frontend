@@ -1,0 +1,556 @@
+/* Variables pour la cohérence des couleurs */
+:root {
+    --primary-color: #2563eb; /* Bleu un peu plus vif */
+    --primary-dark: #1e40af;
+    --primary-light: #60a5fa;
+    --accent-color: #f59e0b; /* Ambre */
+    --accent-dark: #d97706;
+    --background: #f8fafc;
+    --text-dark: #1e293b; /* Gris foncé */
+    --text-medium: #475569; /* Gris moyen */
+    --text-light: #94a3b8; /* Gris clair */
+    --success: #10b981; /* Vert */
+    --warning: #f59e0b; /* Jaune-orange */
+    --danger: #ef4444; /* Rouge */
+    --white: #ffffff;
+    --border-color: #e2e8f0; /* Gris très clair */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --radius-sm: 0.25rem; /* 4px */
+    --radius-md: 0.5rem; /* 8px */
+    --radius-lg: 1rem; /* 16px */
+}
+
+/* Reset et base */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e1f5fe 100%); /* Dégradé bleu très clair */
+    min-height: 100vh;
+    margin: 0;
+    color: var(--text-dark);
+    line-height: 1.5;
+    transition: background 0.5s;
+}
+
+/* Header et navigation */
+header {
+    background: linear-gradient(90deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+    color: var(--white);
+    padding: 1.25rem 0 0.75rem 0;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    border-bottom-left-radius: var(--radius-lg);
+    border-bottom-right-radius: var(--radius-lg);
+    position: sticky; /* Header reste en haut */
+    top: 0;
+    z-index: 10;
+}
+
+header h1 {
+    margin: 0 0 0.75rem 0;
+    font-size: clamp(1.5rem, 5vw, 2.25rem); /* Taille fluide */
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+nav ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; /* Permet aux éléments de passer à la ligne */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    gap: 0.5rem; /* Espace entre les éléments */
+}
+
+nav li {
+    margin: 0;
+}
+
+nav a {
+    display: block;
+    color: rgba(255, 255, 255, 0.85); /* Blanc semi-transparent */
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md) var(--radius-md) 0 0; /* Coins supérieurs arrondis */
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    position: relative;
+}
+
+nav a.active,
+nav a:hover {
+    background: rgba(255, 255, 255, 0.15); /* Léger fond blanc */
+    color: var(--white);
+}
+
+nav a.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--accent-color);
+    border-radius: 1.5px 1.5px 0 0;
+}
+
+/* Structure principale */
+main {
+    width: 95%;
+    max-width: 1200px;
+    margin: 2rem auto;
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: 2rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Titres et sections */
+h2 {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.5rem;
+    position: relative;
+}
+
+h2::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background-color: var(--accent-color);
+}
+
+h3 {
+    color: var(--text-dark);
+    font-size: 1.3rem;
+    margin: 1.5rem 0 1rem 0;
+}
+
+/* Formulaires */
+.data-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+/* Container spécifique pour les boutons de formulaire (si vous en ajoutez un) */
+/* .form-buttons {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+} */
+
+
+.data-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    color: var(--text-medium);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.data-form input,
+.data-form textarea,
+.data-form select {
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    font-size: 1rem;
+    background: var(--background);
+    transition: border 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+}
+
+.data-form input:focus,
+.data-form textarea:focus,
+.data-form select:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.data-form textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+.data-form button {
+    /* Styles pour le bouton d'ajout dans le formulaire */
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    /* Ces propriétés sont importantes si le bouton n'est pas dans un div spécifique */
+    grid-column: 1 / -1; /* Prend toute la largeur dans la grille */
+    margin-top: 1rem;
+    display: block; /* Force le bouton à prendre sa propre ligne */
+    width: fit-content; /* S'adapte à son contenu */
+    justify-self: start; /* Aligner à gauche dans la grille */
+}
+
+.data-form button:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+}
+
+/* Lists et tableaux de données */
+.data-list {
+    margin-top: 2rem;
+    /* Removed overflow here, moved to .table-container */
+}
+
+.data-list h3 {
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Container spécifique pour les tableaux avec scroll vertical et horizontal */
+.table-container {
+    width: 100%;
+    overflow: auto; /* Active le scroll horizontal et vertical si nécessaire */
+    max-height: 60vh; /* Hauteur maximale pour le scroll vertical */
+    min-height: 200px; /* Hauteur minimale pour éviter une trop petite zone de scroll */
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    background: var(--white);
+    margin-bottom: 1.5rem;
+    position: relative; /* Nécessaire pour le sticky header à l'intérieur */
+    box-shadow: var(--shadow-sm); /* Ajouter une légère ombre au conteneur */
+}
+
+/* Style des scrollbars pour les navigateurs Webkit */
+.table-container::-webkit-scrollbar {
+    width: 8px; /* Largeur de la scrollbar verticale */
+    height: 8px; /* Hauteur de la scrollbar horizontale */
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: var(--background); /* Couleur de fond de la piste */
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background: var(--primary-light); /* Couleur de la "poignée" */
+    border-radius: 4px; /* Coins arrondis */
+}
+.table-container::-webkit-scrollbar-thumb:hover {
+     background: var(--primary-color); /* Changement de couleur au survol */
+}
+
+
+.data-list table {
+    width: 100%; /* Le tableau prend 100% de la largeur du conteneur (potentiellement scrollable) */
+    min-width: 800px; /* Largeur minimale pour forcer le scroll horizontal */
+    border-collapse: separate; /* Permet border-spacing */
+    border-spacing: 0; /* Supprime l'espace entre les cellules */
+    margin: 0;
+    font-size: 0.95rem;
+    /* Removed table-layout: fixed; unless specific column widths are set */
+}
+
+/* Styles pour les en-têtes */
+.data-list th {
+    padding: 0.85rem 1.25rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--primary-color);
+    color: var(--white);
+    font-weight: 600;
+    position: sticky; /* Rendre l'en-tête sticky */
+    top: 0; /* Le fixe en haut du conteneur de scroll */
+    z-index: 5;
+    text-transform: uppercase;
+    font-size: 0.8rem; /* Légèrement plus petit pour les en-têtes */
+    letter-spacing: 0.05em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère pour le distinguer */
+    white-space: nowrap; /* Empêche le texte de l'en-tête de passer à la ligne */
+}
+
+/* Styles pour les cellules de données */
+.data-list td {
+    padding: 0.85rem 1.25rem;
+    vertical-align: top; /* Aligner le contenu en haut (utile pour JSON long) */
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.15s;
+    max-width: 200px; /* Limite la largeur par défaut des cellules */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Affiche "..." si le texte dépasse */
+    white-space: nowrap; /* Empêche le texte de passer à la ligne par défaut */
+}
+
+/* Style spécifique pour les cellules contenant du JSON */
+.data-list td.json-cell {
+    white-space: pre-wrap; /* Permet les sauts de ligne et les espaces */
+    word-break: break-word; /* Permet de couper les mots longs qui dépassent */
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace; /* Police mono pour le JSON */
+    font-size: 0.8rem; /* Taille plus petite pour le JSON */
+    max-width: 300px; /* Augmente la largeur maximale pour les champs JSON */
+}
+
+/* Style pour les lignes alternées */
+.data-list tr:nth-child(even) {
+    background-color: rgba(242, 247, 251, 0.6); /* Lignes claires alternées */
+}
+
+/* Survol des lignes */
+.data-list tr:hover td {
+    background-color: rgba(96, 165, 250, 0.08); /* Léger fond bleu au survol */
+}
+
+/* Actions buttons dans les cellules */
+.data-list td button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.5rem 0.85rem;
+    margin-right: 0.5rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    white-space: nowrap; /* Empêche le texte du bouton de passer à la ligne */
+    max-width: none; /* Le bouton ne doit pas être tronqué */
+    overflow: visible;
+    text-overflow: clip;
+}
+
+.data-list td button:last-child {
+    margin-right: 0;
+    background-color: var(--danger);
+}
+
+.data-list td button:hover {
+    transform: translateY(-1px); /* Léger déplacement vertical au survol */
+    box-shadow: var(--shadow-sm);
+}
+
+.data-list td button:first-child:hover {
+    background-color: var(--primary-dark);
+}
+
+.data-list td button:last-child:hover {
+    background-color: #dc2626; /* Rouge un peu plus foncé */
+}
+
+
+/* Message quand pas de données */
+.no-data {
+    padding: 3rem 2rem;
+    text-align: center;
+    color: var(--text-light);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    background: var(--background);
+    border-radius: var(--radius-md);
+    margin-top: 2rem; /* Espace au-dessus */
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    color: var(--text-medium);
+    margin-top: 3rem;
+    padding: 1.5rem 0;
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+    main {
+        padding: 1.75rem 1.25rem;
+    }
+    nav {
+        padding: 0 0.5rem;
+    }
+}
+
+@media (max-width: 992px) {
+    main {
+        padding: 1.5rem 1rem;
+        margin: 1.5rem auto;
+    }
+    
+    .data-form {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Ajuste minmax */
+        gap: 1rem;
+    }
+    
+    h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.2rem;
+    }
+     h3 {
+         font-size: 1.2rem;
+     }
+}
+
+@media (max-width: 768px) {
+    header {
+        padding: 1rem 0 0.5rem 0;
+    }
+
+    header h1 {
+         font-size: 1.8rem;
+         margin-bottom: 0.6rem;
+    }
+
+    nav ul {
+        gap: 0.25rem;
+    }
+
+    nav a {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.9rem;
+    }
+
+    main {
+        width: 98%;
+        padding: 1.25rem 0.75rem;
+        margin: 1.25rem auto;
+    }
+
+    .data-form {
+        grid-template-columns: 1fr; /* Une seule colonne sur les petits écrans */
+         gap: 0.8rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+     h3 {
+         font-size: 1.1rem;
+     }
+
+    .table-container {
+        max-height: 55vh; /* Ajuste la hauteur max sur tablette/mobile */
+        min-height: 200px;
+    }
+
+    .data-list table {
+         min-width: 600px; /* Assure le scroll horizontal sur les petits écrans */
+    }
+
+    .data-list th,
+    .data-list td {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.9rem;
+    }
+
+    .data-list td.json-cell {
+         max-width: 250px; /* Ajuste la largeur max pour JSON */
+         font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 576px) {
+    header h1 {
+        font-size: 1.6rem;
+    }
+
+    nav a {
+        padding: 0.3rem 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    main {
+        padding: 1rem 0.5rem;
+        margin: 1rem auto;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+    }
+     h3 {
+         font-size: 1rem;
+     }
+
+
+    .table-container {
+        max-height: 50vh; /* Hauteur réduite sur très petit écran */
+        min-height: 150px;
+    }
+
+     .data-list table {
+         min-width: 500px; /* Encore plus petit pour le scroll horizontal */
+    }
+
+    .data-list th,
+    .data-list td {
+        padding: 0.5rem 0.6rem;
+        font-size: 0.8rem;
+    }
+
+    .data-list td.json-cell {
+         max-width: 180px; /* Ajuste la largeur max pour JSON */
+         font-size: 0.7rem;
+    }
+
+    .data-form button {
+        width: 100%; /* Bouton pleine largeur sur petit écran */
+        padding: 0.7rem 1rem;
+        font-size: 0.9rem;
+    }
+    .data-list td button {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+    }
+}
